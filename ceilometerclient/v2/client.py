@@ -99,13 +99,7 @@ class Client(object):
             # aodh is unavailable.
             return self.http_client, False
         else:
-            try:
-                # NOTE(liusheng): Getting the aodh's endpoint to rewrite
-                # the endpoint of alarm auth_plugin.
-                self.alarm_auth_plugin.redirect_to_aodh_endpoint(
-                    kwargs.get('timeout'))
-            except exceptions.EndpointNotFound:
-                return self.http_client, False
+            return self.http_client, False
         alarm_client = client.HTTPClient(
             auth_plugin=self.alarm_auth_plugin,
             region_name=kwargs.get('region_name'),
